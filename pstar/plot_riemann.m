@@ -1,4 +1,4 @@
-function [] = plot_rp(ps, g, WL, WR, LX0, LX1, dloc, N, T)
+function [] = plot_riemann(ps, g, WL, WR, LX0, LX1, N, T, fign)
 %PLOT_RP Summary of this function goes here
 %   Detailed explanation goes here
 mu = (g-1)/(g+1);
@@ -9,11 +9,9 @@ cl = sqrt(g*pl/rl);
 Ar = 2/((g+1)*rr); Br = pr*mu;
 cr = sqrt(g*pr/rr);
 
-dx = (LX1-LX0)/N;
-x = ((LX0+dx/2):dx:(LX1-dx/2));
-x = x-dloc;
-
-rsol = zeros(N,1); usol = zeros(N,1); psol = zeros(N,1);
+xgrid = linspace(LX0,LX1,N);
+x = xgrid - 0.5*(LX0+LX1);
+rsol = zeros(N,1); usol = zeros(N,1); psol = zeros(N,1); esol = zeros(N,1);
 
 for i = 1:N
     %left state
@@ -25,10 +23,12 @@ for i = 1:N
             rsol(i) = rl;
             usol(i) = ul;
             psol(i) = pl;
+            esol(i) = pl/(g-1)/rl;
         elseif (x(i) > Sl*T && x(i) < usl*T)
             rsol(i) = rsl;
             usol(i) = usl;
             psol(i) = ps;
+            esol(i) = ps/(g-1)/rsl;
         end        
     else            % left rarefaction
         rsl = rl*(ps/pl)^(1/g);
@@ -40,14 +40,17 @@ for i = 1:N
             rsol(i) = rl;
             usol(i) = ul;
             psol(i) = pl;
+            esol(i) = pl/(g-1)/rl;
         elseif (x(i) > Shl*T && x(i) < Stl*T)
             rsol(i) = rl*(2/(g+1) + (mu/cl)*(ul-x(i)/T))^(2/(g-1));    
             usol(i) = (2/(g+1))*(cl+ul*(g-1)/2 + x(i)/T);
             psol(i) = pl*(2/(g+1) + (mu/cl)*(ul-x(i)/T))^((2*g)/(g-1));
+            esol(i) = psol(i)/(g-1)/rsol(i);
         elseif (x(i) > Stl*T && x(i) < usl*T)
             rsol(i) = rsl;
             usol(i) = usl;
             psol(i) = ps;
+            esol(i) = psol(i)/(g-1)/rsol(i);
         end           
     end
     
@@ -60,10 +63,12 @@ for i = 1:N
             rsol(i) = rr;
             usol(i) = ur;
             psol(i) = pr;
+            esol(i) = psol(i)/(g-1)/rsol(i);
         elseif (x(i) <= Sr*T && x(i) >= usr*T)
             rsol(i) = rsr;
             usol(i) = usr;
             psol(i) = ps;
+            esol(i) = psol(i)/(g-1)/rsol(i);
         end        
     else            % right rarefaction
         rsr = rr*(ps/pr)^(1/g);
@@ -75,38 +80,40 @@ for i = 1:N
             rsol(i) = rr;
             usol(i) = ur;
             psol(i) = pr;
+            esol(i) = psol(i)/(g-1)/rsol(i);
         elseif (x(i) < Shr*T && x(i) > Str*T)
             rsol(i) = rr*(2/(g+1) - (mu/cr)*(ur-x(i)/T))^(2/(g-1));    
             usol(i) = (2/(g+1))*(-cr+ur*(g-1)/2 + x(i)/T);
             psol(i) = pr*(2/(g+1)-(mu/cr)*(ur-x(i)/T))^((2*g)/(g-1));
+            esol(i) = psol(i)/(g-1)/rsol(i);
         elseif (x(i) < Str*T && x(i) > usr*T)
             rsol(i) = rsr;
             usol(i) = usr;
             psol(i) = ps;
+            esol(i) = psol(i)/(g-1)/rsol(i);
         end           
     end
    
 end
-x = x + dloc;
-esol = psol./((g-1).*rsol);
+x = xgrid;
+figure(fign)
+hold on;
 subplot(2,2,1)
-hold on;
-plot(x,rsol,'k')
+plot(x,rsol,'b','LineWidth',2)
 ylabel('$\rho$','Interpreter','Latex','FontSize',14);
-set(gca,'FontName','Times','FontSize',14);
+set(gca,'FontName','Times','FontSize',14)
 subplot(2,2,2)
-hold on;
-plot(x,usol,'k')
-ylabel('u','Interpreter','Latex','FontSize',14);
+plot(x,usol,'b','LineWidth',2)
+ylabel('$u$','Interpreter','Latex','FontSize',14);
 set(gca,'FontName','Times','FontSize',14);
 subplot(2,2,3)
-hold on;
-plot(x,psol,'k')
-ylabel('p','Interpreter','Latex','FontSize',14);
+plot(x,psol,'b','LineWidth',2)
+ylabel('$p$','Interpreter','Latex','FontSize',14);
+xlabel('$x$','Interpreter','Latex','FontSize',14);
 set(gca,'FontName','Times','FontSize',14);
 subplot(2,2,4)
-hold on;
-plot(x,esol,'k')
-ylabel('internal e','Interpreter','Latex','FontSize',14);
+plot(x,esol,'b','LineWidth',2)
+ylabel('$e$','Interpreter','Latex','FontSize',14);
+xlabel('$x$','Interpreter','Latex','FontSize',14);
 set(gca,'FontName','Times','FontSize',14);
 end
