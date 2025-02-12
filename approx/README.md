@@ -1,4 +1,4 @@
-## Welcome to the Riemann Solver Repository
+## Welcome to the Approximate Riemann Solver code
 
 ### This code is managed by the Rodriguez Flow Research group at Brown University
 ### Developer: Mauro Rodriguez Jr. (mauro_rodriguez@brown.edu)
@@ -9,8 +9,6 @@
 * The approximate Riemann solver of Roe (Roe solver) with an entropy correction and flux limiter is also computed, 2nd order accuracy is obtained
 * Superbee and Minmod flux limiters are available, additional flux limiters can be easily added and tested
 
-#### To do: 
-1. Create a more general Riemann solver for a non-constant B (liquid stiffness)
-2. Create a multiphase exact Riemann solver
-3. Add HLL, HLLC, and HLLE approximate Riemann solvers
+To do:
 
+* Add HLL, HLLC, and HLLE approximate Riemann solvers
