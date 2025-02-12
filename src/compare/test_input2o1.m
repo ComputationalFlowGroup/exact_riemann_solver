@@ -1,9 +1,9 @@
 %%% Exact & Approximate Riemann Solver
 %%% Developer: Mauro Rodriguez Jr. (mauro_rodriguez@brown.edu)
 clear all; close all; clc
-approximate = 'src/approximate_solver';
+approximate = 'approximate_solver';
 addpath(approximate);
-exact_solver = 'src/exact_solver';
+exact_solver = 'exact_solver';
 addpath(exact_solver);
 % ratio of specific heats
 g = 1.40;

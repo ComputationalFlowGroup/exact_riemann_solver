@@ -1,9 +1,9 @@
 %%% Exact & Approximate Riemann Solver
 %%% Developer: Mauro Rodriguez Jr. (mauro_rodriguez@brown.edu)
 clear all; close all; clc
-approximate = 'src/approximate_solver';
+approximate = 'approximate_solver';
 addpath(approximate);
-exact_solver = 'src/exact_solver';
+exact_solver = 'exact_solver';
 addpath(exact_solver);
 % Left state
 WL = [1, 0, 1];
@@ -28,7 +28,7 @@ T = 0.2;
 % CFL condition for stability of the approximate Riemann solver
 cfl = 0.75; 
 % number of computational points for approximate Riemann solver
-NX = 100;
+NX = 200;
 % flux limiter, 0: superbee, 1: minmod
 flim = 0;
 % root finding algorithm for p_star

@@ -137,39 +137,39 @@ for i = 1:N
 end
 
 x = x + dloc;
-nsol = dlmread(solname, ' ', 1, 0);
+% nsol = dlmread(solname, ' ', 1, 0);
 figure(1)
 subplot(2,3,1)
 hold on;
 plot(x,rsol,'-k');
-plot(nsol(:,1),nsol(:,2),sty);
+% plot(nsol(:,1),nsol(:,2),sty);
 ylabel('$\rho$','Interpreter','Latex','FontSize',14);
 subplot(2,3,2)
 hold on;
 plot(x,usol,'-k');
-plot(nsol(:,1),nsol(:,3),sty);
+% plot(nsol(:,1),nsol(:,3),sty);
 ylabel('$u$','Interpreter','Latex','FontSize',14);
 subplot(2,3,3)
 hold on;
 plot(x,psol,'-k');
-plot(nsol(:,1),nsol(:,5),sty);
+% plot(nsol(:,1),nsol(:,5),sty);
 ylabel('$p$','Interpreter','Latex','FontSize',14);
 subplot(2,3,4)
 hold on;
 plot(x,(psol - s11sol)/1e6,'-k');
-plot(nsol(:,1),(nsol(:,5)-nsol(:,7))/1e6,sty);
+% plot(nsol(:,1),(nsol(:,5)-nsol(:,7))/1e6,sty);
 % plot(x,s11sol,'-k');
 % plot(nsol(:,1),nsol(:,7),sty);
 ylabel('$\sigma_{11}$','Interpreter','Latex','FontSize',14);
 subplot(2,3,5)
 hold on;
 plot(x,s12sol,'-k');
-plot(nsol(:,1),nsol(:,9),sty);
+% plot(nsol(:,1),nsol(:,9),sty);
 ylabel('$\tau_{12}$','Interpreter','Latex','FontSize',14);
 subplot(2,3,6)
 hold on;
 plot(x,vsol,'-k');
-plot(nsol(:,1),nsol(:,4),sty);
+% plot(nsol(:,1),nsol(:,4),sty);
 ylabel('$-\sigma_{22}$','Interpreter','Latex','FontSize',14);
 % set(gca,'FontName','Times','FontSize',14);
 A = [x',rsol,usol,vsol,psol,s11sol,s22sol,s12sol];
